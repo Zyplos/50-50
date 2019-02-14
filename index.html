@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>50/50</title>
+
+    <meta name="description" content="Press a button.">
+    <meta name="author" content="Zyplos">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#ff3e3e">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@Zyplos" />
+    <meta name="twitter:creator" content="@Zyplos" />
+
+    <style>
+        html,
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Arial, sans-serif;
+            height: 100%;
+            max-height: 100%;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        img {
+            display: flex;
+            align-self: center;
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            padding-right: 2rem;
+            padding-left: 2rem;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 3rem;
+            padding-right: 2rem;
+            padding-left: 2rem;
+        }
+
+        button {
+            margin-top: 0;
+            margin-bottom: 3rem;
+            color: #242424;
+            background-color: #ffde00;
+            border: 1px solid #ffde00;
+
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+
+            -webkit-appearance: button;
+
+            overflow: visible;
+
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1><span class="chance-win">50</span>/<span class="chance-lose">50</span></h1>
+        <p>Press the button. There's a <span class="chance-win">50</span>/<span class="chance-lose">50</span> chance
+            this tab will close.</p>
+        <!--<button type="button" id="randomize">Randomize</button>-->
+        <img src="button.png" alt="Button" id="button">
+    </section>
+    <script>
+        img1 = new Image();
+        img2 = new Image();
+        img1.src = "button.png";
+        img2.src = "button-pressed.png";
+
+        var button = document.getElementById("button");
+        //var randomize = document.getElementById("randomize");
+        var pressed = false;
+
+        button.addEventListener("click", function () {
+            if (pressed) return false;
+            pressed = true;
+            button.src = "button-pressed.png";
+
+            if (Math.random() >= 0.5) {
+                window.close();
+            }
+
+            setTimeout(function () {
+                button.src = "button.png";
+                pressed = false;
+            }, 1000);
+        });
+
+        //randomize.addEventListener("click", function () {});
+    </script>
+</body>
+
+</html>
