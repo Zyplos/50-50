@@ -34,6 +34,7 @@
             max-width: 100%;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         section {
@@ -60,46 +61,34 @@
 
         p {
             margin-top: 0;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             padding-right: 2rem;
             padding-left: 2rem;
         }
 
-        button {
-            margin-top: 0;
+        #streak-display {
+            color: #ff3e3e;
+            font-weight: bolder;
             margin-bottom: 3rem;
-            color: #242424;
-            background-color: #ffde00;
-            border: 1px solid #ffde00;
+        }
 
-            display: inline-block;
-            font-weight: 400;
-            text-align: center;
-            vertical-align: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        #streak-previous {
+            color: #ff3e3e;
+            font-weight: bolder;
+        }
 
-            padding: .375rem .75rem;
-            font-size: 1rem;
-            line-height: 1.5;
-
-            -webkit-appearance: button;
-
-            overflow: visible;
-
-            font-family: inherit;
+        #streak-previous-msg {
+            display: none;
         }
     </style>
 </head>
 
 <body>
     <section>
-        <h1><span class="chance-win">50</span>/<span class="chance-lose">50</span></h1>
-        <p>Press the button. There's a <span class="chance-win">50</span>/<span class="chance-lose">50</span> chance
-            this tab will close.</p>
-        <!--<button type="button" id="randomize">Randomize</button>-->
+        <h1>50/50</h1>
+        <p>Press the button. There's a 50/50 chance this tab will close.</p>
+        <p>You've successfully pressed the button <span id="streak-display">0</span> times.<br><span id="streak-previous-msg">You
+                previously pressed it <span id="streak-previous"></span> times before closing.</span></p>
         <img src="button.png" alt="Button" id="button">
     </section>
     <script>
@@ -109,16 +98,39 @@
         img2.src = "button-pressed.png";
 
         var button = document.getElementById("button");
-        //var randomize = document.getElementById("randomize");
+        var streakElement = document.getElementById("streak-display");
         var pressed = false;
+        var firstpress = false;
+
+        var streak = parseInt(localStorage.getItem("streak"));
+
+        if (streak) {
+            document.getElementById("streak-previous").innerText = streak;
+            document.getElementById("streak-previous-msg").style.display = "inline";
+        }
+
+        function addStreak() {
+            streak++;
+            localStorage.setItem("streak", streak);
+            streakElement.innerText = streak;
+        }
 
         button.addEventListener("click", function () {
             if (pressed) return false;
             pressed = true;
             button.src = "button-pressed.png";
 
+            if (!firstpress) {
+                firstpress = true;
+                streak = 0;
+                localStorage.setItem("streak", streak);
+                streakElement.innerText = streak;
+            }
+
             if (Math.random() >= 0.5) {
                 window.close();
+            } else {
+                addStreak();
             }
 
             setTimeout(function () {
