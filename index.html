@@ -80,13 +80,18 @@
         #streak-previous-msg {
             display: none;
         }
+
+        .red {
+            color: #ff3e3e;
+            font-weight: bolder;
+        }
     </style>
 </head>
 
 <body>
     <section>
         <h1>50/50</h1>
-        <p>Press the button. There's a 50/50 chance this page will get wiped.</p>
+        <p>Press the button. There's a 50/50 chance this page will get wiped. Press <span class="red">R</span> to refresh.</p>
         <p>You've successfully pressed the button <span id="streak-display">0</span> times.<br><span id="streak-previous-msg">You
                 previously pressed it <span id="streak-previous"></span> times before getting wiped.</span></p>
         <img src="button.png" alt="Button" id="button">
@@ -115,6 +120,12 @@
             streakElement.innerText = streak;
         }
 
+        document.querySelector("html").onkeyup = function(e){
+            if(e.keyCode == 82) {
+                location.reload();
+            }
+        };
+
         button.addEventListener("click", function () {
             if (pressed) return false;
             pressed = true;
@@ -128,7 +139,7 @@
             }
 
             if (Math.random() >= 0.5) {
-                document.querySelector("html").innerHTML = "";
+                document.querySelector("section").innerHTML = "";
             } else {
                 addStreak();
             }
