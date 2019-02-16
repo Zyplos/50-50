@@ -85,11 +85,22 @@
             color: #ff3e3e;
             font-weight: bolder;
         }
+
+        #dark-mode {
+            cursor: pointer;
+        }
+
+        .invert {
+            -webkit-filter: invert(1);
+                    filter: invert(1);
+            background-color: black;
+        }
     </style>
 </head>
 
 <body>
     <section>
+        <span id="dark-mode">🌞</span>
         <h1>50/50</h1>
         <p>Press the button. There's a 50/50 chance this page will get wiped. Press <span class="red">R</span> to refresh.</p>
         <p>You've successfully pressed the button <span id="streak-display">0</span> times.<br><span id="streak-previous-msg">You
@@ -104,8 +115,11 @@
 
         var button = document.getElementById("button");
         var streakElement = document.getElementById("streak-display");
+        var htmlElement = document.querySelector("html");
+        var darkMode = document.getElementById("dark-mode");
         var pressed = false;
         var firstpress = false;
+        var darkModeEnabled = false;
 
         var streak = parseInt(localStorage.getItem("streak"));
 
@@ -120,7 +134,7 @@
             streakElement.innerText = streak;
         }
 
-        document.querySelector("html").onkeyup = function(e){
+        htmlElement.onkeyup = function(e){
             if(e.keyCode == 82) {
                 location.reload();
             }
@@ -150,7 +164,17 @@
             }, 1000);
         });
 
-        //randomize.addEventListener("click", function () {});
+        darkMode.addEventListener("click", function () {
+            if(darkModeEnabled){
+                darkModeEnabled = false;
+                htmlElement.className = "";
+                darkMode.innerText = "🌞";
+            } else {
+                darkModeEnabled = true;
+                htmlElement.className = "invert";
+                darkMode.innerText = "🌕";
+            }
+        });
     </script>
 </body>
 
