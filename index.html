@@ -128,6 +128,12 @@
             document.getElementById("streak-previous-msg").style.display = "inline";
         }
 
+        if(localStorage.getItem("darkMode") == "true") {
+            darkModeEnabled = true;
+            htmlElement.className = "invert";
+            darkMode.innerText = "🌕";
+        }
+
         function addStreak() {
             streak++;
             localStorage.setItem("streak", streak);
@@ -169,10 +175,12 @@
                 darkModeEnabled = false;
                 htmlElement.className = "";
                 darkMode.innerText = "🌞";
+                localStorage.setItem("darkMode", false);
             } else {
                 darkModeEnabled = true;
                 htmlElement.className = "invert";
                 darkMode.innerText = "🌕";
+                localStorage.setItem("darkMode", true);
             }
         });
     </script>
