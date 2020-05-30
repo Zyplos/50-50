@@ -116,6 +116,7 @@
         var button = document.getElementById("button");
         var streakElement = document.getElementById("streak-display");
         var htmlElement = document.querySelector("html");
+        var bodyElement = document.querySelector("body");
         var darkMode = document.getElementById("dark-mode");
         var pressed = false;
         var firstpress = false;
@@ -173,12 +174,12 @@
         darkMode.addEventListener("click", function () {
             if(darkModeEnabled){
                 darkModeEnabled = false;
-                htmlElement.className = "";
+                bodyElement.className = "";
                 darkMode.innerText = "🌞";
                 localStorage.setItem("darkMode", false);
             } else {
                 darkModeEnabled = true;
-                htmlElement.className = "invert";
+                bodyElement.className = "invert";
                 darkMode.innerText = "🌕";
                 localStorage.setItem("darkMode", true);
             }
